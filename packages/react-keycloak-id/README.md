@@ -1,7 +1,6 @@
 [![npm stat](https://img.shields.io/npm/dm/react-keycloak-id.svg?style=flat-square)](https://npm-stat.com/charts.html?package=react-keycloak-id)
 [![npm version](https://img.shields.io/npm/v/react-keycloak-id.svg?style=flat-square)](https://www.npmjs.com/package/react-keycloak-id)
 [![](https://data.jsdelivr.com/v1/package/npm/react-keycloak-id/badge)](https://www.jsdelivr.com/package/npm/react-keycloak-id)
-[![install size](https://packagephobia.com/badge?p=react-keycloak-id)](https://packagephobia.com/result?p=react-keycloak-id)
 
 # React Keycloak Id
 A simple react middleware using a keycloak
