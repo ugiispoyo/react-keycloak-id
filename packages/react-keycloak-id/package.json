@@ -9,9 +9,7 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js",
-    "semantic-release": "semantic-release",
-    "commit": "git-cz",
-    "acp": "git add . && npm run commit && git push"
+    "semantic-release": "semantic-release"
   },
   "author": "Ugi Ispoyo Widodo",
   "license": "ISC",

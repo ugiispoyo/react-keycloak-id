@@ -19,7 +19,6 @@ const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
 
 export const useReactKeycloackId = (): T_Keycloack => {
     const dataKyecloak = useContext(ReactKeycloackCTX)
-
     return dataKyecloak
 }
 
