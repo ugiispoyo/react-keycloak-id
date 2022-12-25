@@ -37,6 +37,11 @@
       "path": "git-cz"
     }
   },
+  "release": {
+    "branches": [
+      "master"
+    ]
+  },
   "peerDependencies": {
     "keycloak-js": "20.0.1"
   },

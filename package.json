@@ -2,6 +2,9 @@
   "dependencies": {
     "lerna": "^6.1.0"
   },
+  "scripts": {
+    "publish:react-keycloak-id": "lerna exec --scope=react-keycloak-id npm run acp && npm run commit"
+  },
   "name": "react",
   "workspaces": {
     "packages": [
