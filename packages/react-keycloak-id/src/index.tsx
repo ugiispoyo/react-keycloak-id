@@ -62,7 +62,7 @@ export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProv
                 )
             ) : (
                 <>
-                    Loading...
+                    Initialization keycloak...
                 </>
             )}
         </>

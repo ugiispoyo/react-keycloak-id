@@ -3,7 +3,7 @@
     "lerna": "^6.1.0"
   },
   "scripts": {
-    "publish:react-keycloak-id": "npm run acp && npm run commit",
+    "publish:react-keycloak-id": "npm run acp",
     "commit": "git-cz",
     "acp": "git add . && npm run commit && git push"
   },
