@@ -1,27 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { ReactKeycloackProvider } from '@react/keycloak-id';
+import { ReactKeycloackProvider } from 'react-keycloak-id';
+import User from './components/User';
+
+const init = {
+  url: process.env.REACT_APP_KEYCLOAK_URL as string,
+  realm: process.env.REACT_APP_KEYCLOAK_REALM as string,
+  clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID as string,
+}
 
 function App() {
   return (
-    <ReactKeycloackProvider>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+    <ReactKeycloackProvider init={init}>
+      <React.StrictMode>
+        <User />
+      </React.StrictMode>
     </ReactKeycloackProvider>
   );
 }

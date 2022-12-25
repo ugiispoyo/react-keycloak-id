@@ -1,11 +1,10 @@
-import*as React from'react';import {createContext,useState,useCallback,useEffect}from'react';import Keycloak from'keycloak-js';var init = {
-    url: process.env.REACT_APP_KEYCLOAK_URL,
-    realm: process.env.REACT_APP_KEYCLOAK_REALM,
-    clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+import*as React from'react';import {createContext,useContext,useState,useCallback,useEffect}from'react';import Keycloak from'keycloak-js';var ReactKeycloackCTX = createContext(null);
+var useReactKeylock = function () {
+    var dataKyecloak = useContext(ReactKeycloackCTX);
+    return dataKyecloak;
 };
-var ReactKeycloackCTX = createContext(null);
 var ReactKeycloackProvider = function (_a) {
-    var children = _a.children;
+    var init = _a.init, children = _a.children;
     var _b = useState(null), dataKeycloak = _b[0], setDataKeycloak = _b[1];
     var _c = useState(false), isError = _c[0], setIsError = _c[1];
     var initKey = useCallback(function () {
@@ -30,4 +29,4 @@ var ReactKeycloackProvider = function (_a) {
         initKey();
     }, [initKey]);
     return (React.createElement(React.Fragment, null, isError ? (React.createElement(React.Fragment, null, "Terjadi kesalahan!")) : dataKeycloak ? ((dataKeycloak === null || dataKeycloak === void 0 ? void 0 : dataKeycloak.authenticated) ? (React.createElement(ReactKeycloackCTX.Provider, { value: dataKeycloak }, children)) : (React.createElement("div", null, "Failed to initialize keycloak, please to refresh browser!"))) : (React.createElement(React.Fragment, null, "Loading..."))));
-};export{ReactKeycloackCTX,ReactKeycloackProvider};
+};export{ReactKeycloackProvider,useReactKeylock};

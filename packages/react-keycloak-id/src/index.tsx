@@ -1,17 +1,29 @@
 import * as React from "react";
-import { createContext, useEffect, useState, useCallback } from "react";
+import { createContext, useEffect, useState, useCallback, useContext } from "react";
 import Keycloak from "keycloak-js";
 import type T_Keycloack from "keycloak-js";
 
-const init = {
-    url: process.env.REACT_APP_KEYCLOAK_URL,
-    realm: process.env.REACT_APP_KEYCLOAK_REALM as string,
-    clientId: process.env.REACT_APP_KEYCLOAK_CLIENT_ID as string,
-};
+export interface TInitKeycloak {
+    init: {
+        url: string;
+        realm: string;
+        clientId: string;
+    }
+}
 
-export const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
+export interface TReactKeycloackProvider extends TInitKeycloak {
+    children: JSX.Element;
+}
 
-export const ReactKeycloackProvider = ({ children }: any) => {
+const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
+
+export const useReactKeylock = (): T_Keycloack => {
+    const dataKyecloak = useContext(ReactKeycloackCTX)
+
+    return dataKyecloak
+}
+
+export const ReactKeycloackProvider = ({ init, children }: TReactKeycloackProvider) => {
     const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
     const [isError, setIsError] = useState<boolean>(false);
 
