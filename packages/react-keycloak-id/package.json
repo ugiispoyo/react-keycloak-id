@@ -8,8 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js",
-    "semantic-release": "semantic-release"
+    "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js"
   },
   "author": "Ugi Ispoyo Widodo",
   "license": "ISC",
@@ -23,22 +22,10 @@
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
     "eslint": "^8.30.0",
-    "git-cz": "^4.9.0",
     "rollup": "^3.8.1",
     "rollup-plugin-postcss": "^4.0.2",
-    "semantic-release": "^19.0.5",
     "tslib": "^2.4.1",
     "uglifyjs": "^2.4.11"
-  },
-  "config": {
-    "commitizen": {
-      "path": "git-cz"
-    }
-  },
-  "release": {
-    "branches": [
-      "master"
-    ]
   },
   "peerDependencies": {
     "keycloak-js": "20.0.1"

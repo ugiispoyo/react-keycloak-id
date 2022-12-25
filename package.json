@@ -5,13 +5,33 @@
   "scripts": {
     "publish:react-keycloak-id": "npm run acp",
     "commit": "git-cz",
-    "acp": "git add . && npm run commit && git push"
+    "acp": "git add . && npm run commit && git push",
+    "semantic-release": "semantic-release"
   },
   "name": "react",
   "workspaces": {
     "packages": [
       "packages/*",
       "apps/*"
+    ]
+  },
+  "version": "0.0.0-development",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ugiispoyo/react-keycloak-id.git"
+  },
+  "devDependencies": {
+    "git-cz": "^4.9.0",
+    "semantic-release": "^19.0.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
+  "release": {
+    "branches": [
+      "master"
     ]
   }
 }
