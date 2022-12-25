@@ -8,7 +8,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js"
+    "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js",
+    "semantic-release": "semantic-release"
   },
   "author": "Ugi Ispoyo Widodo",
   "license": "ISC",
@@ -32,5 +33,10 @@
   },
   "dependencies": {
     "react": "^18.2.0"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ]
   }
 }

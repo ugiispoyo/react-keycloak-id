@@ -28,10 +28,5 @@
     "commitizen": {
       "path": "git-cz"
     }
-  },
-  "release": {
-    "branches": [
-      "master"
-    ]
   }
 }
