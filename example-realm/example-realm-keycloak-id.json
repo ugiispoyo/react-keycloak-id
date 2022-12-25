@@ -720,13 +720,9 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "https://dashboard-sb.kitajaga.xyz/*",
-        "http://localhost:3000/*",
-        "http://dashboard-sb.kitajaga.xyz/*"
+        "http://localhost:3000/*"
       ],
       "webOrigins": [
-        "https://dashboard-sb.kitajaga.xyz",
-        "http:/dashboard-sb.kitajaga.xyz",
         "http://localhost:3000"
       ],
       "notBefore": 0,

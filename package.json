@@ -3,10 +3,9 @@
     "lerna": "^6.1.0"
   },
   "scripts": {
-    "publish:react-keycloak-id": "npm run acp",
+    "dev:react-app": "",
     "commit": "git-cz",
-    "acp": "git add . && npm run commit",
-    "semantic-release": "semantic-release"
+    "acp": "git add . && npm run commit"
   },
   "name": "react",
   "workspaces": {
