@@ -5,7 +5,7 @@
   "scripts": {
     "publish:react-keycloak-id": "npm run acp",
     "commit": "git-cz",
-    "acp": "git add . && npm run commit && git push",
+    "acp": "git add . && npm run commit",
     "semantic-release": "semantic-release"
   },
   "name": "react",

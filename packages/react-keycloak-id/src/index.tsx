@@ -51,7 +51,7 @@ export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProv
     return (
         <>
             {isError ? (
-                <>Terjadi kesalahan!</>
+                <div>Terjadi kesalahan!</div>
             ) : dataKeycloak ? (
                 dataKeycloak?.authenticated ? (
                     <ReactKeycloackCTX.Provider value={dataKeycloak}>
@@ -61,9 +61,9 @@ export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProv
                     <div>Failed to initialize keycloak, please to refresh browser!</div>
                 )
             ) : (
-                <>
+                <div>
                     Initialization keycloak...
-                </>
+                </div>
             )}
         </>
     );

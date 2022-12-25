@@ -9,6 +9,7 @@ on:
       - master
     paths: 
       - packages/react-keycloak-id
+      - .github/workflows/publish.yml
 
 jobs:
   
