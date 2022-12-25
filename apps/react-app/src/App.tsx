@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactKeycloackProvider } from 'react-keycloak-id';
+import { ReactKeycloackIdProvider } from 'react-keycloak-id';
 import User from './components/User';
 
 const init = {
@@ -10,11 +10,11 @@ const init = {
 
 function App() {
   return (
-    <ReactKeycloackProvider init={init}>
+    <ReactKeycloackIdProvider init={init}>
       <React.StrictMode>
         <User />
       </React.StrictMode>
-    </ReactKeycloackProvider>
+    </ReactKeycloackIdProvider>
   );
 }
 

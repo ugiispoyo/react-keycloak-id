@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { useReactKeylock } from 'react-keycloak-id'
+import { useReactKeycloackId } from 'react-keycloak-id'
 
 type Props = {}
 
 const User = (props: Props) => {
-    const dataKeycloak = useReactKeylock()
-    const { idTokenParsed, logout } = useReactKeylock()
+    const dataKeycloak = useReactKeycloackId()
+    const { idTokenParsed, logout } = useReactKeycloackId()
 
     useEffect(() => {
         console.log(dataKeycloak)

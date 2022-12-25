@@ -17,13 +17,13 @@ export interface TReactKeycloackProvider extends TInitKeycloak {
 
 const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
 
-export const useReactKeylock = (): T_Keycloack => {
+export const useReactKeycloackId = (): T_Keycloack => {
     const dataKyecloak = useContext(ReactKeycloackCTX)
 
     return dataKyecloak
 }
 
-export const ReactKeycloackProvider = ({ init, children }: TReactKeycloackProvider) => {
+export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProvider) => {
     const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
     const [isError, setIsError] = useState<boolean>(false);
 

@@ -9,5 +9,5 @@ export interface TInitKeycloak {
 export interface TReactKeycloackProvider extends TInitKeycloak {
     children: JSX.Element;
 }
-export declare const useReactKeylock: () => T_Keycloack;
-export declare const ReactKeycloackProvider: ({ init, children }: TReactKeycloackProvider) => JSX.Element;
+export declare const useReactKeycloackId: () => T_Keycloack;
+export declare const ReactKeycloackIdProvider: ({ init, children }: TReactKeycloackProvider) => JSX.Element;
