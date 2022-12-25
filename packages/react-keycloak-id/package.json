@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js && uglifyjs dist/index.js --output dist/index.js"
   },
   "author": "Ugi Ispoyo Widodo",
   "license": "ISC",
@@ -24,7 +24,8 @@
     "eslint": "^8.30.0",
     "rollup": "^3.8.1",
     "rollup-plugin-postcss": "^4.0.2",
-    "tslib": "^2.4.1"
+    "tslib": "^2.4.1",
+    "uglifyjs": "^2.4.11"
   },
   "peerDependencies": {
     "keycloak-js": "20.0.1"
