@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "lerna": "^6.1.0"
+  },
+  "name": "react",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ]
+  }
+}
