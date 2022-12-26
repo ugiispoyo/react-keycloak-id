@@ -1,9 +1,8 @@
 [![npm stat](https://img.shields.io/npm/dm/react-keycloak-id.svg?style=flat-square)](https://npm-stat.com/charts.html?package=react-keycloak-id)
 [![npm version](https://img.shields.io/npm/v/react-keycloak-id.svg?style=flat-square)](https://www.npmjs.com/package/react-keycloak-id)
-[![](https://data.jsdelivr.com/v1/package/npm/react-keycloak-id/badge)](https://www.jsdelivr.com/package/npm/react-keycloak-id)
 
 # React Keycloak Id
-A simple react middleware using keycloak for a web
+A simple react middleware using [keycloak](https://www.keycloak.org/) for a web
 
 ## Installation
 
@@ -55,8 +54,9 @@ Props | Type | Default | Required |
 --- | --- | --- | --- |
 children | JSX.Element, ReactNode | - | true |
 init | object{**[Init](#init)**} | - | true |
-loadingComponent | JSX.Element, ReactNode, string | Loading... | false
-errorComponent | JSX.Element, ReactNode, string | Something went error! | false
+initOptions | object{**[Init Options](https://www.keycloak.org/docs/latest/securing_apps/index.html#methods)**} | {onLoad: "login-required", checkLoginIframe: false} | false |
+loadingComponent | JSX.Element, ReactNode, string | Loading... | false |
+errorComponent | JSX.Element, ReactNode, string | Something went error! | false |
 
 #### Init
 Props | Type | Default | Required |
@@ -66,7 +66,10 @@ realm | string | - | true |
 clientId | string | - | true |
 
 ### useReactKeycloackId
-`useReactKeycloackId` hook of `ReactKeycloackId` <br/>
+`useReactKeycloackId` hook of `ReactKeycloackId` 
+<br/>
+[Detail Hook](https://www.keycloak.org/docs/latest/securing_apps/index.html#javascript-adapter-reference)
+<br/>
 Usage example:
 
 ```javascript
@@ -91,6 +94,6 @@ export default () => {
 }
 ```
 
-[Code Example](https://github.com/ugiispoyo/react-keycloak-id/tree/master/apps/react-app)
+<br/>
 
 [Live Code Example](https://stackblitz.com/edit/react-ts-llmlug?file=App.tsx)

@@ -2,6 +2,7 @@ import * as React from "react";
 import { createContext, useEffect, useState, useCallback, useContext } from "react";
 import Keycloak from "keycloak-js";
 import type T_Keycloack from "keycloak-js";
+import type { KeycloakInitOptions } from 'keycloak-js'
 
 export interface TInitKeycloak {
     init: {
@@ -15,6 +16,7 @@ export interface TReactKeycloackProvider extends TInitKeycloak {
     children: JSX.Element;
     loadingComponent?: JSX.Element | string;
     errorComponent?: JSX.Element | string;
+    initOptions?: KeycloakInitOptions
 }
 
 const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
@@ -24,14 +26,15 @@ export const useReactKeycloackId = (): T_Keycloack => {
     return dataKyecloak
 }
 
-export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, errorComponent }: TReactKeycloackProvider) => {
+export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, errorComponent, initOptions }: TReactKeycloackProvider) => {
     const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
     const [isError, setIsError] = useState<boolean>(false);
+    const keycloakInitOptions: KeycloakInitOptions = { onLoad: "login-required", checkLoginIframe: false, ...initOptions }
 
     const initKey = useCallback(() => {
         const initKeycloak = new Keycloak(init);
         initKeycloak
-            .init({ onLoad: "login-required", checkLoginIframe: false })
+            .init(keycloakInitOptions)
             .then((authenticated) => {
                 console.log("is authenticed: ", authenticated);
                 if (authenticated) {
