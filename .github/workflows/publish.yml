@@ -23,7 +23,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Run Publish
     - run: cd packages/react-keycloak-id && npm i && npm i semantic-release && npm run semantic-release
       env: 
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
