@@ -3,7 +3,7 @@
 [![](https://data.jsdelivr.com/v1/package/npm/react-keycloak-id/badge)](https://www.jsdelivr.com/package/npm/react-keycloak-id)
 
 # React Keycloak Id
-A simple react middleware using a keycloak
+A simple react middleware using keycloak for a web
 
 ## Installation
 
@@ -18,9 +18,11 @@ yarn add react-keycloak-id
 ```
 
 ## How to use
-1. Setup your keycloak
-2. if using CRA (Create React App) remove React.StrictMode on file index.tsx or index.js
-3. Code on App.tsx or App.js
+1. setup your keycloak
+2. note: `don't use <React.StrictMode> outside of <ReactKeycloakIdProvider>`
+3. if using CRA (Create React App) remove `<React.StrictMode>` on file index.js or index.tsx
+4. wrap everything inside `ReactKeycloackIdProvider`
+5. code example on App.js or App.tsx
 
 ```javascript
 import React from 'react';
@@ -36,13 +38,57 @@ function App() {
   return (
     <ReactKeycloackIdProvider init={init}>
       <React.StrictMode>
-        {/* Your child component */}
+        {/* Your component */}
       </React.StrictMode>
     </ReactKeycloackIdProvider>
   );
 }
 
 export default App;
+```
+
+### ReactKeycloakIdProvider
+`ReactKeycloakIdProvider` for wrap everything components, router, redux and others
+
+#### ReactKeycloakIdProvider Props
+Props | Type | Default | Required |
+--- | --- | --- | --- |
+children | JSX.Element, ReactNode | - | true |
+init | object{**[Init](#init)**} | - | true |
+loadingComponent | JSX.Element, ReactNode, string | Loading... | false
+errorComponent | JSX.Element, ReactNode, string | Something went error! | false
+
+#### Init
+Props | Type | Default | Required |
+--- | --- | --- | --- |
+url | string | - | true |
+realm | string | - | true |
+clientId | string | - | true |
+
+### useReactKeycloackId
+`useReactKeycloackId` hook of `ReactKeycloackId` <br/>
+Usage example:
+
+```javascript
+import React, { useEffect } from "react";
+import { useReactKeycloackId } from 'react-keycloak-id'
+
+export default () => {
+  const dataKeycloak = useReactKeycloackId()
+  const { idTokenParsed, logout } = useReactKeycloackId()
+
+  useEffect(() => {
+    console.log(dataKeycloak)
+  }, [])
+
+  return (
+    <div>
+      Name: {idTokenParsed?.name}
+      <br/>
+      <button onClick={() => logout()}>Logout</button>
+    </div>
+  )
+}
 ```
 
 [Code Example](https://github.com/ugiispoyo/react-keycloak-id/tree/master/apps/react-app)

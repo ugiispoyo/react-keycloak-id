@@ -13,6 +13,8 @@ export interface TInitKeycloak {
 
 export interface TReactKeycloackProvider extends TInitKeycloak {
     children: JSX.Element;
+    loadingComponent?: JSX.Element | string;
+    errorComponent?: JSX.Element | string;
 }
 
 const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
@@ -22,7 +24,7 @@ export const useReactKeycloackId = (): T_Keycloack => {
     return dataKyecloak
 }
 
-export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProvider) => {
+export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, errorComponent }: TReactKeycloackProvider) => {
     const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
     const [isError, setIsError] = useState<boolean>(false);
 
@@ -51,7 +53,13 @@ export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProv
     return (
         <>
             {isError ? (
-                <div>Terjadi kesalahan!</div>
+                <>
+                    {
+                        errorComponent ?
+                            errorComponent
+                            : "Something went error!"
+                    }
+                </>
             ) : dataKeycloak ? (
                 dataKeycloak?.authenticated ? (
                     <ReactKeycloackCTX.Provider value={dataKeycloak}>
@@ -61,9 +69,13 @@ export const ReactKeycloackIdProvider = ({ init, children }: TReactKeycloackProv
                     <div>Failed to initialize keycloak, please to refresh browser!</div>
                 )
             ) : (
-                <div>
-                    Initialization keycloak...
-                </div>
+                <>
+                    {
+                        loadingComponent ?
+                            loadingComponent
+                            : "Loading..."
+                    }
+                </>
             )}
         </>
     );
