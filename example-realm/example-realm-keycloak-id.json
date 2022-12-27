@@ -1,5 +1,5 @@
 {
-  "id": "dashboard-sb-local",
+  "id": "test-keycloak-id",
   "realm": "test-keycloak-id",
   "displayName": "Test Keycloak",
   "displayNameHtml": "<div class=\"kc-logo-text\"><span>Keycloak</span></div>",
@@ -53,7 +53,7 @@
         "description": "${role_uma_authorization}",
         "composite": false,
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       },
       {
@@ -61,7 +61,7 @@
         "name": "finance-all",
         "composite": false,
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       },
       {
@@ -70,7 +70,7 @@
         "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       },
       {
@@ -78,7 +78,7 @@
         "name": "koperasi-ops",
         "composite": false,
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       },
       {
@@ -86,12 +86,12 @@
         "name": "insurance-ops",
         "composite": false,
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       },
       {
         "id": "eb81a1ac-8ec7-4ae3-a918-731ce1162d21",
-        "name": "default-roles-dashboard-sb-local",
+        "name": "default-roles-test-keycloak-id",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -108,7 +108,7 @@
           }
         },
         "clientRole": false,
-        "containerId": "dashboard-sb-local",
+        "containerId": "test-keycloak-id",
         "attributes": {}
       }
     ],
@@ -441,11 +441,11 @@
   "groups": [],
   "defaultRole": {
     "id": "eb81a1ac-8ec7-4ae3-a918-731ce1162d21",
-    "name": "default-roles-dashboard-sb-local",
+    "name": "default-roles-test-keycloak-id",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
-    "containerId": "dashboard-sb-local"
+    "containerId": "test-keycloak-id"
   },
   "requiredCredentials": [
     "password"
@@ -497,7 +497,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-dashboard-sb-local"
+        "default-roles-test-keycloak-id"
       ],
       "clientRoles": {
         "realm-management": [
@@ -577,13 +577,13 @@
       "clientId": "account-console",
       "name": "${client_account-console}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/dashboard-sb-local/account/",
+      "baseUrl": "/realms/test-keycloak-id/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/dashboard-sb-local/account/*"
+        "/realms/test-keycloak-id/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
