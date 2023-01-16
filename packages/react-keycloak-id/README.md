@@ -116,6 +116,31 @@ export default = () => {
   )
 }
 ```
+#### 3. `keycloakOnClick`
+function for check token expired or not
+<br/>
+
+`type`: `(...cb: any[]) => void`
+<br/>
+
+usage example `keycloakOnClick`:
+
+```javascript
+export default = () => {
+  const { keycloakOnClick } = useReactKeycloackId()
+
+  const testClick1 = () => {
+    console.log("1")
+  }
+  const testClick2 = () => {
+    console.log("2")
+  }
+
+  return (
+    <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me</button>
+  )
+}
+```
 
 [More details properties of hook useReactKeycloackId](https://www.keycloak.org/docs/latest/securing_apps/index.html#javascript-adapter-reference)
 <hr/>

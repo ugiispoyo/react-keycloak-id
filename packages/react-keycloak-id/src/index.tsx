@@ -15,13 +15,32 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 	 *
 	 * @example
 	 const { onCountDown } = useReactKeycloackId();
-	 	useEffect(() => {
+			useEffect(() => {
 				const interval = setInterval(() => onCountDown("refresh-token"), 1000);
 				return () => clearInterval(interval);
 		}, []);
 	 *
 	 */
 	onCountDown: (from?: "token" | "refresh-token") => void;
+
+	/**
+	 * function to check token expired or not
+	 *
+	 * @example
+	 * 
+    const { keycloakOnClick } = useReactKeycloackId()
+		const testClick1 = () => {
+			console.log("1")
+		}
+		const testClick2 = () => {
+			console.log("2")
+		}
+		return (
+      <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me</button>
+		)
+	 * 
+	 */
+	keycloakOnClick: (...cb: any[]) => Promise<void>;
 }
 export interface I_InitKeycloak {
 	init: {
@@ -78,10 +97,27 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 		}
 	}
 
+	async function keycloakOnClick(...cb: any[]) {
+		const isExpired = dataKeycloak.isTokenExpired();
+		if (isExpired) {
+			try {
+				const resultRefresh = await dataKeycloak.updateToken(150);
+				if(resultRefresh) {
+					cb.forEach(s => s.apply())
+				} 
+			} catch(e) {
+				console.log("Error refresh token ", e)
+			}
+		} else {
+			cb.forEach(s => s.apply())
+		}
+	}
+
 	const allData = {
 		...dataKeycloak,
 		onCountDown,
 		countDown,
+		keycloakOnClick,
 	} as I_UseReactKeycloakId
 
 	return allData
