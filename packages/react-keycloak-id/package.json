@@ -12,7 +12,7 @@
     "semantic-release": "semantic-release"
   },
   "author": "Ugi Ispoyo Widodo",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
