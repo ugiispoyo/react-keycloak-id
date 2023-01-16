@@ -12,9 +12,9 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
      * @example
      * const { onCountDown } = useReactKeycloackId();
      * useEffect(() => {
-            const interval = setInterval(onCountDown, 1000);
-            return () => clearInterval(interval);
-        }, []);
+                    const interval = setInterval(onCountDown, 1000);
+                    return () => clearInterval(interval);
+            }, []);
      *
      */
     onCountDown: (from?: "token" | "refresh-token") => void;
