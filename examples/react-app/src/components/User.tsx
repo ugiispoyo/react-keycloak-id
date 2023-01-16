@@ -2,11 +2,9 @@ import React, { useEffect } from 'react'
 import { useReactKeycloackId } from 'react-keycloak-id'
 import Count from './Count'
 
-type Props = {}
-
-const User = (props: Props) => {
+const User = () => {
     const dataKeycloak = useReactKeycloackId()
-    const { idTokenParsed, logout, loadUserProfile } = useReactKeycloackId()
+    const { idTokenParsed, logout, loadUserProfile, keycloakOnClick } = useReactKeycloackId()
 
     useEffect(() => {
         /* All data keycloak */
@@ -18,6 +16,13 @@ const User = (props: Props) => {
         }).catch((e) => { console.log(e) })
     }, [])
 
+    const testClick1 = () => {
+        console.log("1")
+    }
+    const testClick2 = () => {
+        console.log("2")
+    }
+
     return (
         <div style={{ display: 'block', width: '300px', margin: '100px auto' }}>{idTokenParsed?.name}
             <br />
@@ -25,6 +30,9 @@ const User = (props: Props) => {
             <button onClick={() => {
                 logout();
             }}>Logout</button>
+            <br />
+            <br />
+            <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me</button>
             <br />
             <br />
             Token expiration countdown: <br />
