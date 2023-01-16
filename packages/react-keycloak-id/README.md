@@ -84,13 +84,13 @@ export default App;
 #### properties of hook useReactKeycloackId
 
 #### 1. `countDown`
-countDown time if used `onCountDown` of refresh token
+countDown time if used `onCountDown` of token or refresh token
 <br/>
 
 `type`: `object {remains: number; minutes: number; seconds: number;}`
 
 #### 2. `onCountDown`
-onCountDown time function of refresh token
+onCountDown time function of token or refresh token
 <br/>
 
 `type`: `(from: "token" | "refresh-token") => void`
