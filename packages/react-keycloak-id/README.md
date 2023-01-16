@@ -110,13 +110,7 @@ export default = () => {
   return (
     <div>
       <span>
-        {
-          countDown.minutes
-        } minutes
-        &nbsp;
-        {
-          countDown.seconds
-        } seconds
+        {countDown.minutes} minutes {countDown.seconds} seconds
       </span>
     </div>
   )

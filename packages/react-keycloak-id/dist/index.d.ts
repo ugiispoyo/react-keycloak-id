@@ -10,11 +10,11 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
     /** onCountdown if you want to using countdown time of token or refresh token
      *
      * @example
-     * const { onCountDown } = useReactKeycloackId();
-     * useEffect(() => {
-                    const interval = setInterval(onCountDown, 1000);
-                    return () => clearInterval(interval);
-            }, []);
+     const { onCountDown } = useReactKeycloackId();
+        useEffect(() => {
+                const interval = setInterval(() => onCountDown("refresh-token"), 1000);
+                return () => clearInterval(interval);
+        }, []);
      *
      */
     onCountDown: (from?: "token" | "refresh-token") => void;
