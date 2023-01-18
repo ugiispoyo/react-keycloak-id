@@ -172,4 +172,16 @@ export default () => {
 
 <br/>
 
-[Live Code Example](https://stackblitz.com/edit/react-ts-llmlug?file=App.tsx)
+### Example with "login-required" initial
+![Example](https://drive.google.com/uc?export=view&id=1ZDBJ7Mfg8X4IBjl3A7vNb9lYQw6vW9Qs)
+
+
+[Demo code with "login-required" initial](https://github.com/ugiispoyo/react-keycloak-id/tree/master/examples/react-app)
+
+<hr/>
+<br/>
+
+### Example with "check-sso" initial
+![Example](https://drive.google.com/uc?export=view&id=1C5DmvFGYo3Mw8q0CtFYqSE8a4F3uOb5Z)
+
+[Demo code with "check-sso" initial](https://github.com/ugiispoyo/react-keycloak-id/tree/master/examples/with-check-sso)
