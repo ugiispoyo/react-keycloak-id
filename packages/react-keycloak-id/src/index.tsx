@@ -40,7 +40,7 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 		)
 	 * 
 	 */
-	keycloakOnClick: (...cb: Array<(args?: any) => any>) => Promise<void>;
+	keycloakOnClick: (...cb: any[]) => Promise<void>;
 }
 export interface I_InitKeycloak {
 	init: {
