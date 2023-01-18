@@ -40,7 +40,7 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 		)
 	 * 
 	 */
-	keycloakOnClick: (...cb: any[]) => Promise<void>;
+	keycloakOnClick: (...cb: Array<(args?: any) => any>) => Promise<void>;
 }
 export interface I_InitKeycloak {
 	init: {
@@ -133,15 +133,13 @@ export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, err
 		initKeycloak
 			.init(keycloakInitOptions)
 			.then((authenticated) => {
-				console.log("is authenticed: ", authenticated);
-				if (authenticated) {
+				if(authenticated) {
 					setDataKeycloak(initKeycloak);
-				} else {
-					setIsError(true);
 				}
+				setDataKeycloak(initKeycloak);
 			})
 			.catch((e) => {
-				console.log("Error init keycloak: ", e);
+				console.error("Error init keycloak: ", e);
 				setIsError(true);
 			});
 	}, []);
@@ -161,13 +159,9 @@ export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, err
 					}
 				</>
 			) : dataKeycloak ? (
-				dataKeycloak?.authenticated ? (
 					<ReactKeycloackCTX.Provider value={dataKeycloak}>
 						{children}
 					</ReactKeycloackCTX.Provider>
-				) : (
-					<div>Failed to initialize keycloak, please to refresh browser!</div>
-				)
 			) : (
 				<>
 					{
