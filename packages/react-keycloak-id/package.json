@@ -1,6 +1,6 @@
 {
   "name": "react-keycloak-id",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "A small package for create middleware using keycloak js",
   "main": "dist/index.js",
   "type": "module",
