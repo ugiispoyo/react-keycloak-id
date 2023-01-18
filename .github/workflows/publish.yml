@@ -25,7 +25,7 @@ jobs:
         node-version: '18'
     - name: Publish package
       run: |-
-        cd packages/react-keycloak-id && npm i && npm i semantic-release@20.0.2 && npm run semantic-release
+        cd packages/react-keycloak-id && npm i semantic-release@20.0.2 && npm run semantic-release
       env: 
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
