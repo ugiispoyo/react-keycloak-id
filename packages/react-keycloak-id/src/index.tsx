@@ -1,16 +1,24 @@
 import * as React from "react";
-import { createContext, useEffect, useState, useCallback, useContext } from "react";
+import { 
+	createContext, 
+	useEffect, 
+	useState, 
+	useCallback, 
+	useContext 
+} from "react";
 import Keycloak from "keycloak-js";
 import type T_Keycloack from "keycloak-js";
 import type { KeycloakInitOptions } from 'keycloak-js'
 
 export interface I_UseReactKeycloakId extends T_Keycloack {
+	
 	/** Countdown time if used onCountdown of token or refresh token */
 	countDown: {
 		remains: number;
 		minutes: number;
 		seconds: number;
 	};
+
 	/** onCountdown if you want to using countdown time of token or refresh token
 	 *
 	 * @example
@@ -36,7 +44,7 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 			console.log("2")
 		}
 		return (
-      <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me</button>
+      <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If expired)</button>
 		)
 	 * 
 	 */
@@ -60,8 +68,13 @@ export interface TReactKeycloackProvider extends I_InitKeycloak {
 const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
 
 export const useReactKeycloackId = (): I_UseReactKeycloakId => {
+
 	const dataKeycloak = useContext(ReactKeycloackCTX)
-	const [countDown, setCountDown] = useState<{ remains: number; minutes: number; seconds: number }>({
+	const [countDown, setCountDown] = useState<{ 
+		remains: number; 
+		minutes: number; 
+		seconds: number 
+	}>({
 		remains: 0,
 		minutes: 0,
 		seconds: 0,
@@ -123,10 +136,21 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 	return allData
 }
 
-export const ReactKeycloackIdProvider = ({ init, children, loadingComponent, errorComponent, initOptions }: TReactKeycloackProvider) => {
+export const ReactKeycloackIdProvider = ({ 
+	init,
+	children, 
+	loadingComponent, 
+	errorComponent, 
+	initOptions 
+}: TReactKeycloackProvider) => {
+
 	const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
 	const [isError, setIsError] = useState<boolean>(false);
-	const keycloakInitOptions: KeycloakInitOptions = { onLoad: "login-required", checkLoginIframe: false, ...initOptions }
+	const keycloakInitOptions: KeycloakInitOptions = { 
+		onLoad: "login-required", 
+		checkLoginIframe: false, 
+		...initOptions 
+	}
 
 	const initKey = useCallback(() => {
 		const initKeycloak = new Keycloak(init);
