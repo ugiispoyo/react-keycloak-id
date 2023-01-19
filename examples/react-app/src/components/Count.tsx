@@ -19,7 +19,8 @@ const Count = () => {
         {
           countDown.seconds
         } seconds
-      </span></div>
+      </span>
+    </div>
   )
 }
 
