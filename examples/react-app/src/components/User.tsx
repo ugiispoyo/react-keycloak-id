@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useReactKeycloackId } from 'react-keycloak-id'
 import Count from './Count'
+import CountdonwRefrehToken from './CountdonwRefrehToken'
 
 const User = () => {
     const dataKeycloak = useReactKeycloackId()
@@ -32,11 +33,14 @@ const User = () => {
             }}>Logout</button>
             <br />
             <br />
-            <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If expired)</button>
+            <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
             <br />
             <br />
             Token expiration countdown: <br />
             <Count />
+            <br />
+            Refresh Token expiration countdown: <br />
+            <CountdonwRefrehToken />
             <br />
         </div>
     )
