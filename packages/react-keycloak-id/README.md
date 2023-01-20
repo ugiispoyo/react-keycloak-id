@@ -137,7 +137,7 @@ export default = () => {
   }
 
   return (
-    <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If expired)</button>
+    <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
   )
 }
 ```

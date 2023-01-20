@@ -117,9 +117,11 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 				const resultRefresh = await dataKeycloak.updateToken(150);
 				if(resultRefresh) {
 					cb.forEach(s => s.apply())
-				} 
+				}
 			} catch(e) {
 				console.log("Error refresh token ", e)
+				dataKeycloak.clearToken()
+				dataKeycloak.logout()
 			}
 		} else {
 			cb.forEach(s => s.apply())
