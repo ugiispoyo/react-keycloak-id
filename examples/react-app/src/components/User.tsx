@@ -24,15 +24,8 @@ const User = () => {
         console.log("2")
     }
 
-    function onErrorRefreshToken(err: boolean) {
-        if(err) {
-            console.log("Token was expired ", err)
-            // dataKeycloak.logout()
-        }
-    }
-
     const options = {
-        onError: onErrorRefreshToken
+        minValidity: 150
     }
 
     return (

@@ -40,17 +40,17 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
             }
         }
 
-    function onErrorRefreshToken(err: boolean) {
+        function onErrorRefreshToken(err: boolean) {
             if(err) {
                     console.log("Token was expired ", err)
                     // dataKeycloak.logout()
             }
-    }
+        }
 
-    const options = {
-      onError: onErrorRefreshToken
+        const options = {
+            onError: onErrorRefreshToken
             minValidity: 150
-    }
+        }
 
         return (
             <button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If expired)</button>
