@@ -1,17 +1,17 @@
 import * as React from "react";
-import { 
-	createContext, 
-	useEffect, 
-	useState, 
-	useCallback, 
-	useContext 
+import {
+	createContext,
+	useEffect,
+	useState,
+	useCallback,
+	useContext
 } from "react";
 import Keycloak from "keycloak-js";
 import type T_Keycloack from "keycloak-js";
 import type { KeycloakInitOptions } from 'keycloak-js'
 
 export interface I_UseReactKeycloakId extends T_Keycloack {
-	
+
 	/** Countdown time if used onCountdown of token or refresh token */
 	countDown: {
 		remains: number;
@@ -32,23 +32,32 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 	onCountDown: (from?: "token" | "refresh-token") => void;
 
 	/**
-	 * function to check token expired or not
+	 * This function is used to refresh the token when the token has run out which can be used for other functions that require tokens. by using this function you no longer need to manually create a refresh token. you just put functions that require a token into the arguments of this function. there are two arguments inside this function.
+		 1. The first argument is callback `[cb]: any[]`, which can be used to put your function and can be multiple functions.
+		 2. callback onError `(err: boolean) => void`, used to put the callback function when an error occurs when refreshing the token, this error when refresh token was expired, this is optional.
 	 *
 	 * @example
 	 * 
-    const { keycloakOnClick } = useReactKeycloackId()
+		const { keycloakOnClick } = useReactKeycloackId()
+
 		const testClick1 = () => {
 			console.log("1")
 		}
 		const testClick2 = () => {
 			console.log("2")
 		}
+
+		const onErrorRefreshToken = (err: boolean) => {
+			if(err) {
+				dataKeycloak.logout()
+			}
+		}
 		return (
-      <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If expired)</button>
+			<button onClick={() => keycloakOnClick([testClick1, testClick2], onErrorRefreshToken)}>Click Me For Refresh Token (If expired)</button>
 		)
 	 * 
 	 */
-	keycloakOnClick: (...cb: any[]) => Promise<void>;
+	keycloakOnClick: ([...cb]: any[], onError?: (err: boolean) => void) => Promise<void>;
 }
 export interface I_InitKeycloak {
 	init: {
@@ -70,10 +79,10 @@ const ReactKeycloackCTX = createContext<T_Keycloack | null>(null);
 export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 
 	const dataKeycloak = useContext(ReactKeycloackCTX)
-	const [countDown, setCountDown] = useState<{ 
-		remains: number; 
-		minutes: number; 
-		seconds: number 
+	const [countDown, setCountDown] = useState<{
+		remains: number;
+		minutes: number;
+		seconds: number
 	}>({
 		remains: 0,
 		minutes: 0,
@@ -110,19 +119,33 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 		}
 	}
 
-	async function keycloakOnClick(...cb: any[]) {
+	async function keycloakOnClick([...cb]: any[], onError?: (err: boolean) => void) {
 		const isExpired = dataKeycloak.isTokenExpired();
 		if (isExpired) {
-			try {
-				const resultRefresh = await dataKeycloak.updateToken(150);
-				if(resultRefresh) {
+			dataKeycloak.updateToken(150).then((success) => {
+				if (success) {
 					cb.forEach(s => s.apply())
 				}
-			} catch(e) {
+			}).catch((e) => {
 				console.log("Error refresh token ", e)
-				dataKeycloak.clearToken()
-				dataKeycloak.logout()
-			}
+				if (typeof onError !== 'undefined') {
+					onError(e)
+				} 
+			})
+
+			// try {
+			// 	const resultRefresh = await dataKeycloak.updateToken(150);
+			// 	if (resultRefresh) {
+			// 		cb.forEach(s => s.apply())
+			// 	}
+			// } catch (e) {
+			// 	console.log("Error refresh token ", e)
+			// 	if (typeof onError !== 'undefined') {
+			// 		onError(e)
+			// 	} else {
+			// 		dataKeycloak.logout()
+			// 	}
+			// }
 		} else {
 			cb.forEach(s => s.apply())
 		}
@@ -138,20 +161,20 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 	return allData
 }
 
-export const ReactKeycloackIdProvider = ({ 
+export const ReactKeycloackIdProvider = ({
 	init,
-	children, 
-	loadingComponent, 
-	errorComponent, 
-	initOptions 
+	children,
+	loadingComponent,
+	errorComponent,
+	initOptions
 }: TReactKeycloackProvider) => {
 
 	const [dataKeycloak, setDataKeycloak] = useState<T_Keycloack | null>(null);
 	const [isError, setIsError] = useState<boolean>(false);
-	const keycloakInitOptions: KeycloakInitOptions = { 
-		onLoad: "login-required", 
-		checkLoginIframe: false, 
-		...initOptions 
+	const keycloakInitOptions: KeycloakInitOptions = {
+		onLoad: "login-required",
+		checkLoginIframe: false,
+		...initOptions
 	}
 
 	const initKey = useCallback(() => {
@@ -159,7 +182,7 @@ export const ReactKeycloackIdProvider = ({
 		initKeycloak
 			.init(keycloakInitOptions)
 			.then((authenticated) => {
-				if(authenticated) {
+				if (authenticated) {
 					setDataKeycloak(initKeycloak);
 				}
 				setDataKeycloak(initKeycloak);
@@ -185,9 +208,9 @@ export const ReactKeycloackIdProvider = ({
 					}
 				</>
 			) : dataKeycloak ? (
-					<ReactKeycloackCTX.Provider value={dataKeycloak}>
-						{children}
-					</ReactKeycloackCTX.Provider>
+				<ReactKeycloackCTX.Provider value={dataKeycloak}>
+					{children}
+				</ReactKeycloackCTX.Provider>
 			) : (
 				<>
 					{
