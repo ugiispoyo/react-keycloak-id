@@ -12,7 +12,7 @@ const User = () => {
     console.log("keyclaok ", dataKeycloak)
 
     /* Load user profile */
-    if(authenticated) {
+    if (authenticated) {
       loadUserProfile().then((data) => {
         console.log(data)
       }).catch((e) => { console.log(e) })
@@ -27,11 +27,14 @@ const User = () => {
     console.log("2")
   }
 
-  const onErrorRefreshToken = (err: boolean) => {
-      if(err) {
-        console.log("Token was expired ", err)
-        // dataKeycloak.logout()
-      }
+  function onErrorRefreshToken(err: boolean) {
+    if (err) {
+      console.log("Token was expired ", err)
+    }
+  }
+
+  const options = {
+    onError: onErrorRefreshToken
   }
 
   return (
@@ -46,7 +49,7 @@ const User = () => {
             }}>Logout</button>
             <br />
             <br />
-            <button onClick={() => keycloakOnClick([testClick1, testClick2], onErrorRefreshToken)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
+            <button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
             <br />
             <br />
             Token expiration countdown: <br />
@@ -57,8 +60,8 @@ const User = () => {
           </>
           :
           <>
-          <h1>Login with keycloak</h1>
-          <button onClick={() => login()}>Click to Login</button>
+            <h1>Login with keycloak</h1>
+            <button onClick={() => login()}>Click to Login</button>
           </>
       }
     </div>

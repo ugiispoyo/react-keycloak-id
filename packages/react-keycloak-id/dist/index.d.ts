@@ -20,8 +20,8 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
     onCountDown: (from?: "token" | "refresh-token") => void;
     /**
      * This function is used to refresh the token when the token has run out which can be used for other functions that require tokens. by using this function you no longer need to manually create a refresh token. you just put functions that require a token into the arguments of this function. there are two arguments inside this function.
-         1. The first argument is callback `[cb]: any[]`, which can be used to put your function and can be multiple functions.
-         2. callback onError `(err: boolean) => void`, used to put the callback function when an error occurs when refreshing the token, this error when refresh token was expired, this is optional.
+        1. Callback function `[cb]: any[]`, which can be used to put your function and can be multiple functions.
+        2. Options Object `{onError?: (err: boolean) => void; minValidity?: number | 5}`. this is optional.
      *
      * @example
      *
@@ -39,13 +39,30 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
                 dataKeycloak.logout()
             }
         }
+
+    function onErrorRefreshToken(err: boolean) {
+            if(err) {
+                    console.log("Token was expired ", err)
+                    // dataKeycloak.logout()
+            }
+    }
+
+    const options = {
+      onError: onErrorRefreshToken
+            minValidity: 150
+    }
+
         return (
-            <button onClick={() => keycloakOnClick([testClick1, testClick2], onErrorRefreshToken)}>Click Me For Refresh Token (If expired)</button>
+            <button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If expired)</button>
         )
      *
      */
-    keycloakOnClick: ([...cb]: any[], onError?: (err: boolean) => void) => Promise<void>;
+    keycloakOnClick: ([...cb]: any[], options?: optionKeycloakOnClick) => Promise<void>;
 }
+export type optionKeycloakOnClick = {
+    onError?: (err: boolean) => void;
+    minValidity?: number | 5;
+};
 export interface I_InitKeycloak {
     init: {
         url: string;

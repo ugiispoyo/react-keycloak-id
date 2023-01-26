@@ -24,11 +24,15 @@ const User = () => {
         console.log("2")
     }
 
-    const onErrorRefreshToken = (err: boolean) => {
+    function onErrorRefreshToken(err: boolean) {
         if(err) {
             console.log("Token was expired ", err)
             // dataKeycloak.logout()
         }
+    }
+
+    const options = {
+        onError: onErrorRefreshToken
     }
 
     return (
@@ -40,7 +44,7 @@ const User = () => {
             }}>Logout</button>
             <br />
             <br />
-            <button onClick={() => keycloakOnClick([testClick1, testClick2], onErrorRefreshToken)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
+            <button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
             <br />
             <br />
             Token expiration countdown: <br />
