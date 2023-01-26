@@ -117,10 +117,13 @@ export default = () => {
 }
 ```
 #### 3. `keycloakOnClick`
-function for check token expired or not
+This function is used to refresh the token when the token has run out which can be used for other functions that require tokens. by using this function you no longer need to manually create a refresh token. you just put functions that require a token into the arguments of this function. there are two arguments inside this function.
+
+1. The first argument is callback `[cb]: any[]`, which can be used to put your function and can be multiple functions.
+2. Callback onError `(err: boolean) => void`, used to put the callback function when an error occurs when refreshing the token, this error when refresh token was expired, this is optional.
 <br/>
 
-`type`: `(...cb: any[]) => void`
+`type`: `([...cb]: any[], onError?: (err: boolean) => void) => Promise<void>`
 <br/>
 
 usage example `keycloakOnClick`:
@@ -129,15 +132,23 @@ usage example `keycloakOnClick`:
 export default = () => {
   const { keycloakOnClick } = useReactKeycloackId()
 
-  const testClick1 = () => {
+  const func1 = () => {
     console.log("1")
   }
-  const testClick2 = () => {
+
+  const func2 = () => {
     console.log("2")
   }
 
+  const onErrorRefreshToken = (err: boolean) => {
+    if(err) {
+      console.log("Token was expired ", err)
+      // dataKeycloak.logout()
+    }
+  }
+
   return (
-    <button onClick={() => keycloakOnClick(testClick1, testClick2)}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
+    <button onClick={() => keycloakOnClick(keycloakOnClick([func1, func2], onErrorRefreshToken))}>Click Me For Refresh Token (If token is expired and refresh token not expired)</button>
   )
 }
 ```
