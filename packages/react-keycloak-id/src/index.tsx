@@ -33,8 +33,8 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 
 	/**
 	 * This function is used to refresh the token when the token has run out which can be used for other functions that require tokens. by using this function you no longer need to manually create a refresh token. you just put functions that require a token into the arguments of this function. there are two arguments inside this function.
-		 1. The first argument is callback `[cb]: any[]`, which can be used to put your function and can be multiple functions.
-		 2. callback onError `(err: boolean) => void`, used to put the callback function when an error occurs when refreshing the token, this error when refresh token was expired, this is optional.
+		1. Callback function `[cb]: any[]`, which can be used to put your function and can be multiple functions.
+		2. Options Object `{onError?: (err: boolean) => void; minValidity?: number | 5}`. this is optional.
 	 *
 	 * @example
 	 * 
@@ -52,13 +52,32 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 				dataKeycloak.logout()
 			}
 		}
+
+    function onErrorRefreshToken(err: boolean) {
+			if(err) {
+					console.log("Token was expired ", err)
+					// dataKeycloak.logout()
+			}
+    }
+
+    const options = {
+      onError: onErrorRefreshToken
+			minValidity: 150
+    }
+
 		return (
-			<button onClick={() => keycloakOnClick([testClick1, testClick2], onErrorRefreshToken)}>Click Me For Refresh Token (If expired)</button>
+			<button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If expired)</button>
 		)
 	 * 
 	 */
-	keycloakOnClick: ([...cb]: any[], onError?: (err: boolean) => void) => Promise<void>;
+	keycloakOnClick: ([...cb]: any[], options?: optionKeycloakOnClick ) => Promise<void>;
 }
+
+export type optionKeycloakOnClick = {
+	onError?: (err: boolean) => void;
+	minValidity?: number | 5
+}
+
 export interface I_InitKeycloak {
 	init: {
 		url: string;
@@ -119,10 +138,12 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 		}
 	}
 
-	async function keycloakOnClick([...cb]: any[], onError?: (err: boolean) => void) {
+	async function keycloakOnClick([...cb]: any[], options?: optionKeycloakOnClick) {
+		const { onError, minValidity = 5 } = options;
+
 		const isExpired = dataKeycloak.isTokenExpired();
 		if (isExpired) {
-			dataKeycloak.updateToken(150).then((success) => {
+			dataKeycloak.updateToken(minValidity).then((success) => {
 				if (success) {
 					cb.forEach(s => s.apply())
 				}
@@ -132,20 +153,6 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 					onError(e)
 				} 
 			})
-
-			// try {
-			// 	const resultRefresh = await dataKeycloak.updateToken(150);
-			// 	if (resultRefresh) {
-			// 		cb.forEach(s => s.apply())
-			// 	}
-			// } catch (e) {
-			// 	console.log("Error refresh token ", e)
-			// 	if (typeof onError !== 'undefined') {
-			// 		onError(e)
-			// 	} else {
-			// 		dataKeycloak.logout()
-			// 	}
-			// }
 		} else {
 			cb.forEach(s => s.apply())
 		}
