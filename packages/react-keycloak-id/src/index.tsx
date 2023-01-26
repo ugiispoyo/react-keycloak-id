@@ -53,24 +53,24 @@ export interface I_UseReactKeycloakId extends T_Keycloack {
 			}
 		}
 
-    function onErrorRefreshToken(err: boolean) {
+		function onErrorRefreshToken(err: boolean) {
 			if(err) {
 					console.log("Token was expired ", err)
 					// dataKeycloak.logout()
 			}
-    }
+		}
 
-    const options = {
-      onError: onErrorRefreshToken
+		const options = {
+			onError: onErrorRefreshToken
 			minValidity: 150
-    }
+		}
 
 		return (
 			<button onClick={() => keycloakOnClick([testClick1, testClick2], options)}>Click Me For Refresh Token (If expired)</button>
 		)
 	 * 
 	 */
-	keycloakOnClick: ([...cb]: any[], options?: optionKeycloakOnClick ) => Promise<void>;
+	keycloakOnClick: ([...cb]: any[], options?: optionKeycloakOnClick) => Promise<void>;
 }
 
 export type optionKeycloakOnClick = {
@@ -139,19 +139,17 @@ export const useReactKeycloackId = (): I_UseReactKeycloakId => {
 	}
 
 	async function keycloakOnClick([...cb]: any[], options?: optionKeycloakOnClick) {
-		const { onError, minValidity = 5 } = options;
-
 		const isExpired = dataKeycloak.isTokenExpired();
 		if (isExpired) {
-			dataKeycloak.updateToken(minValidity).then((success) => {
+			dataKeycloak.updateToken(options?.minValidity || 5).then((success) => {
 				if (success) {
 					cb.forEach(s => s.apply())
 				}
 			}).catch((e) => {
-				console.log("Error refresh token ", e)
-				if (typeof onError !== 'undefined') {
-					onError(e)
-				} 
+				console.error("Error refresh token ", e)
+				if (typeof options?.onError !== 'undefined') {
+					options?.onError(e)
+				}
 			})
 		} else {
 			cb.forEach(s => s.apply())
